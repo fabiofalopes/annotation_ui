@@ -1,0 +1,32 @@
+.tag-hover-menu {
+    position: absolute;
+    background-color: #34495e;
+    color: #ecf0f1;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    max-width: 300px;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+  }
+  
+  .tag-hover-menu h3 {
+    margin-top: 0;
+    color: #3498db;
+  }
+  
+  .tag-hover-menu ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .tag-hover-menu li {
+    margin-bottom: 8px;
+    opacity: 0.8;
+  }
+  
+  .tag-hover-menu p {
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }

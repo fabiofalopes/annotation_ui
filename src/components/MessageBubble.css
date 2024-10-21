@@ -1,0 +1,26 @@
+.message-bubble {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 16px;
+    max-width: 80%;
+    align-self: flex-end;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.8em;
+    color: #888;
+  }
+  
+  .turn-id {
+    font-weight: bold;
+  }
+  
+  .message-content {
+    margin-bottom: 8px;
+    word-wrap: break-word;
+  }
