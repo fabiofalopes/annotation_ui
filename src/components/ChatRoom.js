@@ -1,65 +1,62 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MessageBubble from './MessageBubble';
-import TagHoverMenu from './TagHoverMenu';
+import ThreadMenu from './ThreadMenu';
 import './ChatRoom.css';
 
 const ChatRoom = ({ messages }) => {
-  const [tags, setTags] = useState({});
-  const [hoveredTag, setHoveredTag] = useState(null);
-  const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
-  const chatBoxRef = useRef(null);
+    const [tags, setTags] = useState({});
+    const chatBoxRef = useRef(null);
 
-  useEffect(() => {
-    if (chatBoxRef.current) {
-      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-    }
-  }, [messages]);
+    useEffect(() => {
+        if (chatBoxRef.current) {
+            chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+        }
+    }, [messages]);
 
-  const handleTagUpdate = (turnId, tag) => {
-    setTags(prevTags => ({ ...prevTags, [turnId]: tag }));
-  };
+    const handleTagUpdate = (turnId, tagName) => {
+        setTags(prevTags => {
+            const newTags = { ...prevTags };
+            if (tagName) {
+                if (!newTags[turnId]) {
+                    newTags[turnId] = {
+                        name: tagName,
+                        description: '',
+                        created: new Date().toLocaleString(),
+                        usageCount: 1
+                    };
+                } else {
+                    newTags[turnId].name = tagName;
+                    newTags[turnId].usageCount++;
+                }
+            } else {
+                delete newTags[turnId];
+            }
+            return newTags;
+        });
+    };
 
-  const handleTagHover = (tag, event) => {
-    if (tag) {
-      const chatBoxRect = chatBoxRef.current.getBoundingClientRect();
-      const targetRect = event.target.getBoundingClientRect();
-      
-      let top = targetRect.top - chatBoxRect.top;
-      let left = targetRect.left - chatBoxRect.left - 320; // 300px width + 20px margin
+    const handleTagEdit = (tag) => {
+        // Implement tag editing logic here
+        console.log(`Editing tag: ${tag}`);
+    };
 
-      // If there's not enough space on the left, position it on the right
-      if (left < 0) {
-        left = targetRect.right - chatBoxRect.left + 20;
-      }
-
-      // If it would appear below the viewport, position it above the tag
-      if (top + 200 > chatBoxRect.height) { // Assuming menu height is about 200px
-        top = top - 220; // 200px height + 20px margin
-      }
-
-      setMenuPosition({ top, left });
-    }
-    setHoveredTag(tag);
-  };
-
-  return (
-    <div className="chat-room" ref={chatBoxRef}>
-      <div className="chat-box">
-        {messages.map((message) => (
-          <MessageBubble
-            key={message.turn_id}
-            message={message}
-            tag={tags[message.turn_id] || message.thread}
-            onTagUpdate={handleTagUpdate}
-            onTagHover={handleTagHover}
-          />
-        ))}
-      </div>
-      {hoveredTag && (
-        <TagHoverMenu tag={hoveredTag} position={menuPosition} />
-      )}
-    </div>
-  );
+    return (
+        <div className="chat-room-container">
+            <div className="chat-room" ref={chatBoxRef}>
+                <div className="chat-box">
+                    {messages.map((message) => (
+                        <MessageBubble
+                            key={message.turn_id}
+                            message={message}
+                            tag={tags[message.turn_id] ? tags[message.turn_id].name : ''}
+                            onTagUpdate={handleTagUpdate}
+                        />
+                    ))}
+                </div>
+            </div>
+            <ThreadMenu tags={tags} onTagEdit={handleTagEdit} />
+        </div>
+    );
 };
 
 export default ChatRoom;
