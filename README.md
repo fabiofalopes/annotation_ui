@@ -4,6 +4,34 @@ Work in progress
 
 Versão 0.001 da Ferramenta de anotação, especificamente do layout para o modulo de chat disentanglement.
 
+## Correr App
+
+## Local
+
+1. Install dependencies:
+   ```
+   npm install
+   ```
+2. Start the development server:
+   ```
+   npm start
+   ```
+3. http://localhost:3000 
+
+## Docker
+
+1. Requisitos: Docker e Docker Compose
+2. Build and run the Docker container:
+   ```
+   docker-compose up --build
+   ```
+   or
+   ```
+   docker compose build
+   docker compose up -d
+   ```
+3. http://localhost:3666
+
 # Notas
 
 Input csv: Obrigatorio seguir o formato colunas :
