@@ -46,8 +46,8 @@ Input csv: Obrigatorio seguir o formato colunas :
 - [ ] Sugestão de tags. Após já terem sido criadas algumas tags, deve sempre sugerir essas tags para ser apenas 1 click para as colocar no turno.
 - [ ] Esquema de cores: Tanto em tags como na UI em geral
     - Ter o dark mode sempre ativo no meu browser não ajudou kk
-- [ ] Se coluna reply_to_turn tiver referencia, então mostrar referencia á chat bubble (estilo whatsapp)
-- [ ] Save file
+- [ ] Se coluna reply_to_turn tiver referencia, então mostrar referencia a chat bubble (estilo whatsapp)
+- [ ] Save file / Load file Resume
 - [ ] Resume Work (começar exatamente onde estava, mesmo a nivel de scroll no chat)
 - [ ] Navegação das paginas, agora esta confuso com a landing page assim..
 - [ ] O "see more" das mensagens longas tem que ser apenas para mensagens mesmo longas (so alterar o threshold)
