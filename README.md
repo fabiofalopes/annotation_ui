@@ -54,3 +54,4 @@ Input csv: Obrigatorio seguir o formato colunas :
 - [ ] Navegação das paginas, agora esta confuso com a landing page assim..
 - [ ] O "see more" das mensagens longas tem que ser apenas para mensagens mesmo longas (so alterar o threshold)
 - [ ] Thread Tag menu mais optimizado: Cartões editaveis com descrição por exemplo para a tag editada. 
+- [ ] Important: Load the tags já criadas no csv com um comportamento estranho. Deve mostrar logo todas as tags previamente anotadas e guardadas no ficheiro
