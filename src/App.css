@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .App-header {
@@ -12,7 +15,40 @@
   margin: 0;
 }
 
-main {
+.App-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 
+.loading-message,
+.error-message,
+.instruction-message {
+  margin: 20px 0;
+  font-size: 1.1em;
+}
+
+.error-message {
+  color: #e74c3c;
+}
+
+.chat-view {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 120px);
+}
+
+@media (max-width: 768px) {
+  .App-main {
+    padding: 15px;
+  }
+  
+  .chat-view {
+    flex-direction: column;
+  }
+}

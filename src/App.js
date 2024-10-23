@@ -1,35 +1,82 @@
-// App.js
-import React, { useState, useEffect } from 'react';
-import ChatRoom from './components/ChatRoom';
+import React, { useState } from 'react';
 import './App.css';
+import ChatRoom from './components/ChatRoom';
+import FileLoader from './components/FileLoader';
+import ThreadMenu from './components/ThreadMenu';
+import csvUtils from './utils/csvUtils';
 
-const App = () => {
-  const [messages, setMessages] = useState([]);
+function App() {
+    const [messages, setMessages] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [view, setView] = useState('fileLoader');
+    const [tags, setTags] = useState({});
 
-  useEffect(() => {
-    // Simulating loading data from a CSV file
-    // In a real application, you'd replace this with actual CSV parsing logic
-    const mockMessages = [
-      { user_id: 'user1', turn_id: '1', turn_text: 'Hello, how are you?', reply_to_turn: null, thread: '' },
-      { user_id: 'user2', turn_id: '2', turn_text: "I'm doing well, thanks!", reply_to_turn: '1', thread: '' },
-      { user_id: 'user1', turn_id: '3', turn_text: 'Great! What are your plans for today?', reply_to_turn: '2', thread: '' },
-      { user_id: 'user2', turn_id: '4', turn_text: "I'm going to work on a project. How about you?", reply_to_turn: '3', thread: '' },
-      { user_id: 'user1', turn_id: '5', turn_text: 'I have a meeting later, but otherwise just coding.', reply_to_turn: '4', thread: '' },
-    ];
+    const handleFileSelect = async (file) => {
+        console.log('File selected in App.js:', file.name);
+        setIsLoading(true);
+        setError(null);
+        try {
+            const csvData = await csvUtils.loadCsv(file);
+            console.log('CSV data loaded:', csvData);
+            setMessages(csvData.data);
+            console.log('Messages set:', csvData.data);
+            setView('chatRoom');
+        } catch (err) {
+            console.error('Error loading file:', err);
+            setError('Failed to load the file. Please try again.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+    
+    const handleBackToFileLoader = () => {
+        setView('fileLoader');
+        setMessages([]);
+        setTags({});
+      };
 
-    setMessages(mockMessages);
-  }, []);
+    const handleAnnotation = (turnId, annotation) => {
+        setMessages((prevMessages) => {
+            return prevMessages.map((message) =>
+                message.turn_id === turnId
+                    ? { ...message, thread: `${message.thread} ${annotation}`.trim() }
+                    : message
+            );
+        });
+        setTags((prevTags) => ({
+            ...prevTags,
+            [turnId]: annotation,
+        }));
+    };
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Annotation Chatroom</h1>
-      </header>
-      <main>
-        <ChatRoom messages={messages} />
-      </main>
-    </div>
-  );
-};
+    const handleTagEdit = (tagName) => {
+        // Implement tag editing logic here
+        console.log('Editing tag:', tagName);
+    };
+
+    return (
+        <div className="App">
+          <header className="App-header">
+            <h1>Chat Room</h1>
+          </header>
+          <main className="App-main">
+            {view === 'fileLoader' ? (
+              <>
+                <FileLoader onFileSelect={handleFileSelect} />
+                {isLoading && <p className="loading-message">Loading file...</p>}
+                {error && <p className="error-message">{error}</p>}
+              </>
+            ) : (
+              <div className="chat-view">
+                <button className="back-button" onClick={handleBackToFileLoader}>Back</button>
+                <ChatRoom messages={messages} onAnnotation={handleAnnotation} />
+                <ThreadMenu tags={tags} onTagEdit={handleTagEdit} />
+              </div>
+            )}
+          </main>
+        </div>
+      );
+}
 
 export default App;

@@ -1,26 +1,41 @@
 .message-bubble {
-    background-color: #ffffff;
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 16px;
-    max-width: 80%;
-    align-self: flex-end;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  }
-  
-  .message-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 0.8em;
-    color: #888;
-  }
-  
-  .turn-id {
-    font-weight: bold;
-  }
-  
-  .message-content {
-    margin-bottom: 8px;
-    word-wrap: break-word;
-  }
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 16px;
+  max-width: 80%;
+  align-self: flex-end;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.8em;
+  color: #888;
+}
+
+.turn-id {
+  font-weight: bold;
+}
+
+.message-content {
+  margin-bottom: 8px;
+  word-wrap: break-word;
+}
+
+.see-all-button {
+  background: none;
+  border: none;
+  color: #3498db;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-left: 5px;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.see-all-button:hover {
+  color: #2980b9;
+}
