@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+# Annotation tool for chat disentanglement
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Work in progress
 
-## Available Scripts
+Versão 0.001 da Ferramenta de anotação, especificamente do layout para o modulo de chat disentanglement.
 
-In the project directory, you can run:
+# Notas
 
-### `npm start`
+Input csv: Obrigatorio seguir o formato colunas :
+- **user_id**: consists of the ID of the user who sent the turn.
+- **turn_id**: represents a unique ID for the sent turn.
+- **turn_text**: consists of a text, containing one or more sentences sent by the user.
+- **reply_to_turn**: also called reply-mark. This column indicates which turn the current turn explicitly replies to.
+- **thread**: a column that should be filled in by the annotator through the identification of the threads.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Todo's
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [ ] Sugestão de tags. Após já terem sido criadas algumas tags, deve sempre sugerir essas tags para ser apenas 1 click para as colocar no turno.
+- [ ] Esquema de cores: Tanto em tags como na UI em geral
+    - Ter o dark mode sempre ativo no meu browser não ajudou kk
+- [ ] Se coluna reply_to_turn tiver referencia, então mostrar referencia á chat bubble (estilo whatsapp)
+- [ ] Save file
+- [ ] Resume Work (começar exatamente onde estava, mesmo a nivel de scroll no chat)
+- [ ] Navegação das paginas, agora esta confuso com a landing page assim..
+- [ ] O "see more" das mensagens longas tem que ser apenas para mensagens mesmo longas (so alterar o threshold)
+- [ ] Thread Tag menu mais optimizado: Cartões editaveis com descrição por exemplo para a tag editada. 

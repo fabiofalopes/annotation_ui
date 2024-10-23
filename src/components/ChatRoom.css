@@ -60,3 +60,18 @@
 .back-button:hover {
   background-color: #2980b9;
 }
+
+.chat-room {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chat-box {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}

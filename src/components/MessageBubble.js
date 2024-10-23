@@ -11,25 +11,28 @@ const MessageBubble = ({ message, tag, onTagUpdate }) => {
   };
 
   const displayText = message && message.turn_text
-    ? (expanded || message.turn_text.length <= maxLength
-      ? message.turn_text
-      : `${message.turn_text.slice(0, maxLength)}...`)
+    ? (expanded ? message.turn_text : message.turn_text.slice(0, maxLength))
     : 'No message content';
 
+  const shouldShowExpandButton = message?.turn_text && message.turn_text.length > maxLength;
+
   return (
-    <div className="message-bubble" style={tag ? { borderLeft: `4px solid ${tag.color}` } : {}}>
+    <div className={`message-bubble ${expanded ? 'expanded' : ''}`} style={tag ? { borderLeft: `4px solid ${tag.color}` } : {}}>
       <div className="message-header">
         <span className="turn-id">{message?.turn_id || 'Unknown'}</span>
         <span className="user-id">{message?.user_id || 'Unknown'}</span>
       </div>
       <div className="message-content">
         {displayText}
-        {message?.turn_text && message.turn_text.length > maxLength && (
-          <button className="see-all-button" onClick={toggleExpand}>
-            {expanded ? 'See less' : 'See all'}
-          </button>
-        )}
+        {!expanded && shouldShowExpandButton && '...'}
       </div>
+      {shouldShowExpandButton && (
+        <div className="see-more-container">
+          <button className="see-all-button" onClick={toggleExpand}>
+            {expanded ? 'See less' : 'See more'}
+          </button>
+        </div>
+      )}
       <TagInput
         tag={tag}
         onTagUpdate={onTagUpdate}
