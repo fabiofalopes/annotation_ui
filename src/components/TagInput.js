@@ -3,14 +3,12 @@ import './TagInput.css';
 
 const TagInput = ({ tag, onTagUpdate }) => {
     const [isEditing, setIsEditing] = useState(false);
-    const [inputValue, setInputValue] = useState(tag || '');
+    const [inputValue, setInputValue] = useState(tag ? tag.name : '');
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (inputValue.trim() !== '') {
             onTagUpdate(inputValue.trim());
-        } else {
-            onTagUpdate(null); // Remove the tag if input is empty
         }
         setIsEditing(false);
     };
@@ -36,8 +34,9 @@ const TagInput = ({ tag, onTagUpdate }) => {
                 <div
                     className={`tag ${tag ? 'has-tag' : 'no-tag'}`}
                     onClick={() => setIsEditing(true)}
+                    style={tag ? { backgroundColor: tag.color } : {}}
                 >
-                    {tag || 'Add tag'}
+                    {tag ? tag.name : 'Add tag'}
                     <span className="edit-icon">✎</span>
                 </div>
             )}

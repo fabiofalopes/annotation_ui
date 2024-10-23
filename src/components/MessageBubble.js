@@ -17,7 +17,7 @@ const MessageBubble = ({ message, tag, onTagUpdate }) => {
     : 'No message content';
 
   return (
-    <div className="message-bubble">
+    <div className="message-bubble" style={tag ? { borderLeft: `4px solid ${tag.color}` } : {}}>
       <div className="message-header">
         <span className="turn-id">{message?.turn_id || 'Unknown'}</span>
         <span className="user-id">{message?.user_id || 'Unknown'}</span>
@@ -32,7 +32,7 @@ const MessageBubble = ({ message, tag, onTagUpdate }) => {
       </div>
       <TagInput
         tag={tag}
-        onTagUpdate={(newTag) => onTagUpdate(message?.turn_id, newTag)}
+        onTagUpdate={onTagUpdate}
       />
     </div>
   );
