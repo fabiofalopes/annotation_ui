@@ -21,14 +21,17 @@ const csvUtils = {
                         const threadValue = row[threadField];
                         return {
                             ...row,
-                            thread: threadValue,
+                            thread: threadValue !== undefined ? String(threadValue) : '',
                         };
                     });
+
+                    const uniqueTags = [...new Set(validatedData.map(row => row.thread).filter(tag => tag !== ''))];
 
                     console.log('Validated data:', validatedData);
                     resolve({
                         data: validatedData,
                         metadata: results.meta,
+                        uniqueTags: uniqueTags,
                     });
                 },
                 error: (error) => {

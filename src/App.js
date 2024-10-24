@@ -19,8 +19,23 @@ function App() {
         try {
             const csvData = await csvUtils.loadCsv(file);
             console.log('CSV data loaded:', csvData);
-            setMessages(csvData.data);
-            console.log('Messages set:', csvData.data);
+            const messagesWithTags = csvData.data.map((message) => ({
+                ...message,
+                thread: message.thread !== undefined ? String(message.thread) : '',
+            }));
+            setMessages(messagesWithTags);
+
+            const initialTags = {};
+            csvData.uniqueTags.forEach(tagName => {
+                initialTags[tagName] = {
+                    name: tagName,
+                    color: getRandomColor(),
+                    references: csvData.data.filter(message => String(message.thread) === tagName).map(message => message.turn_id),
+                    created: new Date().toISOString()
+                };
+            });
+            setTags(initialTags);
+
             setView('chatRoom');
         } catch (err) {
             console.error('Error loading file:', err);
@@ -29,7 +44,7 @@ function App() {
             setIsLoading(false);
         }
     };
-    
+
     const handleBackToFileLoader = () => {
         setView('fileLoader');
         setMessages([]);
@@ -57,7 +72,9 @@ function App() {
                     created: new Date().toISOString()
                 };
             } else {
-                updatedTags[tagName].references.push(turnId);
+                if (!updatedTags[tagName].references.includes(turnId)) {
+                    updatedTags[tagName].references.push(turnId);
+                }
             }
             return updatedTags;
         });
