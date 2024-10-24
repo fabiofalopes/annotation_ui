@@ -87,3 +87,8 @@ go away.
 Fix !!!
 
 ---
+
+# Questões 
+
+- Como identificar os anotadores ao carregar os ficherios?
+   - Pelo nome da coluna Thead_<nome>?

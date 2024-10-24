@@ -4,7 +4,7 @@ import './MessageBubble.css';
 
 const MessageBubble = ({ message, tag, onTagUpdate }) => {
   const [expanded, setExpanded] = useState(false);
-  const maxLength = 100;
+  const maxLength = 300;
 
   const toggleExpand = () => {
     setExpanded(!expanded);
