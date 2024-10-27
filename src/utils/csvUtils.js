@@ -1,5 +1,4 @@
 import Papa from 'papaparse';
-import moment from 'moment';
 
 const csvUtils = {
     loadCsv: (file) => {
@@ -10,18 +9,38 @@ const csvUtils = {
                 dynamicTyping: true,
                 complete: (results) => {
                     console.log('Papa Parse results:', results);
-                    const threadField = results.meta.fields.find((field) => field.toLowerCase().includes('thread'));
+                    // Check for basic required columns except thread
+                    const basicColumns = ['user_id', 'turn_id', 'turn_text', 'reply_to_turn'];
+                    const missingBasicColumns = basicColumns.filter(col =>
+                        !results.meta.fields.some(field =>
+                            field.toLowerCase() === col.toLowerCase()
+                        )
+                    );
+
+                    if (missingBasicColumns.length > 0) {
+                        const errorMessage = `CSV file is missing required columns: ${missingBasicColumns.join(', ')}. \n\nRequired columns are: ${basicColumns.join(', ')} and a thread column (can be named 'thread_*' or '*_thread')`;
+                        console.error(errorMessage);
+                        reject(new Error(errorMessage));
+                        return;
+                    }
+
+                    // Find any column that contains 'thread' in its name
+                    const threadField = results.meta.fields.find((field) =>
+                        field.toLowerCase().includes('thread')
+                    );
 
                     if (!threadField) {
-                        console.error('Thread field not found in CSV file');
-                        reject(new Error('Thread field not found in CSV file'));
+                        const errorMessage = 'CSV file must contain a thread column (can be named "thread_*" or "*_thread")';
+                        console.error(errorMessage);
+                        reject(new Error(errorMessage));
+                        return;
                     }
 
                     const validatedData = results.data.map((row) => {
                         const threadValue = row[threadField];
                         return {
                             ...row,
-                            thread: threadValue !== undefined ? String(threadValue) : '',
+                            thread: threadValue !== undefined && threadValue !== null ? String(threadValue) : '',
                         };
                     });
 
@@ -32,6 +51,7 @@ const csvUtils = {
                         data: validatedData,
                         metadata: results.meta,
                         uniqueTags: uniqueTags,
+                        fileName: file.name,
                     });
                 },
                 error: (error) => {
@@ -42,39 +62,63 @@ const csvUtils = {
         });
     },
 
-    createPersistentCopy: async (csvData) => {
-        const timestamp = moment().format('YYYYMMDD_HHmmss');
-        const csvString = Papa.unparse(csvData.data, {
-            header: true,
-            delimiter: ',',
-        });
+    saveChangesToCsv: async (messages, tags, fileName) => {
+        try {
+            const response = await fetch('/api/save-csv', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ messages, tags, fileName }),
+            });
 
-        const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', `data_${timestamp}.csv`);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+            if (!response.ok) {
+                throw new Error('Failed to save CSV file');
+            }
 
-        return `data_${timestamp}.csv`;
+            const result = await response.json();
+            console.log('Changes saved to CSV file:', result.message);
+        } catch (error) {
+            console.error('Error saving CSV file:', error);
+        }
     },
 
-    annotateThread: (csvData, annotation) => {
-        const annotatedData = csvData.data.map((row) => {
-            const threadValue = row.thread;
-            return {
-                ...row,
-                thread: `${threadValue} ${annotation}`,
-            };
+    copyToFiles: async (file, destinationFileName) => {
+        const response = await fetch('/api/copy-to-files', {
+            method: 'POST',
+            body: (() => {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('destinationFileName', destinationFileName);
+                return formData;
+            })(),
         });
-
-        return {
-            data: annotatedData,
-            metadata: csvData.metadata,
-        };
+        
+        const result = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(result.message);
+        }
+    
+        return result;
     },
+
+    loadWorkspaceFile: async (fileName) => {
+        try {
+            const response = await fetch(`/api/workspace-file/${fileName}`);
+            if (!response.ok) {
+                throw new Error('Failed to load workspace file');
+            }
+            const blob = await response.blob();
+            const file = new File([blob], fileName, { type: 'text/csv' });
+            
+            // Use the same loadCsv function to ensure consistent parsing
+            return csvUtils.loadCsv(file);
+        } catch (error) {
+            throw new Error(`Error loading workspace file: ${error.message}`);
+        }
+    }
+
 };
 
 export default csvUtils;

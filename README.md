@@ -16,9 +16,13 @@ Versão 0.001 da Ferramenta de anotação, especificamente do layout para o modu
    ```
 2. Start the development server:
    ```
-   npm start
+   npm run dev
    ```
-3. http://localhost:3000 
+   This command starts both:
+      - React development server on port 3721 (frontend)
+      - Express server on port 3722 (handles file operations and API endpoints)
+
+3. http://localhost:3721 
 
 ## Docker
 
@@ -32,7 +36,7 @@ Versão 0.001 da Ferramenta de anotação, especificamente do layout para o modu
    docker compose build
    docker compose up -d
    ```
-3. http://localhost:3666
+3. http://localhost:3721
 
 # Notas
 

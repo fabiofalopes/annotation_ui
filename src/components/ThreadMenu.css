@@ -5,6 +5,27 @@
   overflow-y: auto;
   background-color: var(--secondary-bg);
   color: var(--text-color);
+  max-height: calc(100vh - 120px);
+}
+
+/* Add scrollbar styling to match chat room */
+.thread-menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.thread-menu::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: var(--primary-color);
+}
+
+.thread-menu::-webkit-scrollbar-track {
+  background-color: var(--background-color);
+}
+
+.thread-menu h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: var(--primary-color);
 }
 
 .thread-menu h2 {

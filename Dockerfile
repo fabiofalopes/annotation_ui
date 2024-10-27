@@ -1,5 +1,5 @@
-# Use an official Node runtime as the base image
-FROM node:14
+# Update to Node 18
+FROM node:18
 
 # Set the working directory in the container
 WORKDIR /app
@@ -13,8 +13,11 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 3000
+# Install nodemon globally for development
+RUN npm install -g nodemon
 
-# Define the command to run the app
-CMD ["npm", "start"]
+# Expose both the React and Express ports
+EXPOSE 3721 3722
+
+# Define the command to run both servers
+CMD ["npm", "run", "dev"]

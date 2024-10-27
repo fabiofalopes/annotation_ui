@@ -1,113 +1,167 @@
 import React, { useState, useEffect } from 'react';
+import { Route, Routes, Link, Navigate, useNavigate } from 'react-router-dom';
 import './App.css';
 import ChatRoom from './components/ChatRoom';
 import FileLoader from './components/FileLoader';
 import ThreadMenu from './components/ThreadMenu';
 import csvUtils from './utils/csvUtils';
+
 function App() {
     const [messages, setMessages] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [view, setView] = useState('fileLoader');
     const [tags, setTags] = useState({});
     const [theme, setTheme] = useState('light');
+    const [fileUploaded, setFileUploaded] = useState(false);
+    const [currentFileName, setCurrentFileName] = useState('');
+    const navigate = useNavigate();
 
-    const handleFileSelect = async (file) => {
+    const saveState = (state) => {
+        try {
+            const serializedState = JSON.stringify(state);
+            localStorage.setItem('chatAppState', serializedState);
+        } catch (err) {
+            console.error('Could not save state', err);
+        }
+    };
+
+    const loadState = () => {
+        try {
+            const serializedState = localStorage.getItem('chatAppState');
+            if (serializedState === null) {
+                return undefined;
+            }
+            return JSON.parse(serializedState);
+        } catch (err) {
+            console.error('Could not load state', err);
+            return undefined;
+        }
+    };
+
+    useEffect(() => {
+        const savedState = loadState();
+        if (savedState) {
+            setMessages(savedState.messages);
+            setTags(savedState.tags);
+            setFileUploaded(savedState.fileUploaded);
+            setCurrentFileName(savedState.currentFileName);
+        }
+    }, []);
+
+    useEffect(() => {
+        saveState({ messages, tags, fileUploaded, currentFileName });
+    }, [messages, tags, fileUploaded, currentFileName]);
+
+    const handleFileSelect = async (file, isWorkspaceFile = false) => {
         console.log('File selected in App.js:', file.name);
         setIsLoading(true);
         setError(null);
+        
         try {
-            const csvData = await csvUtils.loadCsv(file);
-            console.log('CSV data loaded:', csvData);
+            let csvData;
+            
+            if (isWorkspaceFile) {
+                // Load directly from workspace using the same parsing logic
+                csvData = await csvUtils.loadCsv(file);
+            } else {
+                // External file - copy to workspace first
+                await csvUtils.copyToFiles(file, file.name);
+                csvData = await csvUtils.loadCsv(file);
+            }
+    
             const messagesWithTags = csvData.data.map((message) => ({
                 ...message,
-                thread: message.thread !== undefined ? String(message.thread) : '',
+                thread: message.thread !== '' ? String(message.thread) : '',
             }));
             setMessages(messagesWithTags);
-
+    
+            // Process tags from the loaded data
             const initialTags = {};
             csvData.uniqueTags.forEach(tagName => {
-                initialTags[tagName] = {
-                    name: tagName,
-                    color: getRandomColor(),
-                    references: csvData.data.filter(message => String(message.thread) === tagName).map(message => message.turn_id),
-                    created: new Date().toISOString()
-                };
+                if (tagName !== '') {
+                    initialTags[tagName] = {
+                        name: tagName,
+                        color: getRandomColor(),
+                        references: messagesWithTags.filter(message => String(message.thread) === tagName).map(message => message.turn_id),
+                        created: new Date().toISOString()
+                    };
+                }
             });
             setTags(initialTags);
-
-            setView('chatRoom');
+    
+            setCurrentFileName(file.name);
+            setFileUploaded(true);
+            navigate('/chat');
         } catch (err) {
-            console.error('Error loading file:', err);
-            setError('Failed to load the file. Please try again.');
+            console.error('Error:', err);
+            setError(err.message);
+            setFileUploaded(false);
         } finally {
             setIsLoading(false);
         }
     };
-    const handleBackToFileLoader = () => {
-        setView('fileLoader');
-        setMessages([]);
-        setTags({});
-    };
 
-    const handleAnnotation = (turnId, tagName) => {
+    const handleAnnotation = async (turnId, tagName) => {
         if (tagName.trim() === '') return;
 
-        setMessages((prevMessages) => {
-            return prevMessages.map((message) =>
-                message.turn_id === turnId
-                    ? { ...message, thread: tagName.trim() }
-                    : message
-            );
-        });
+        const updatedMessages = messages.map((message) =>
+            message.turn_id === turnId
+                ? { ...message, thread: tagName.trim() }
+                : message
+        );
 
-        setTags((prevTags) => {
-            const updatedTags = { ...prevTags };
-            if (!updatedTags[tagName]) {
-                updatedTags[tagName] = {
-                    name: tagName,
-                    color: getRandomColor(),
-                    references: [turnId],
-                    created: new Date().toISOString()
-                };
-            } else {
-                if (!updatedTags[tagName].references.includes(turnId)) {
-                    updatedTags[tagName].references.push(turnId);
-                }
+        setMessages(updatedMessages);
+
+        const updatedTags = { ...tags };
+        if (!updatedTags[tagName]) {
+            updatedTags[tagName] = {
+                name: tagName,
+                color: getRandomColor(),
+                references: [turnId],
+                created: new Date().toISOString()
+            };
+        } else {
+            if (!updatedTags[tagName].references.includes(turnId)) {
+                updatedTags[tagName].references.push(turnId);
             }
-            return updatedTags;
-        });
+        }
+
+        setTags(updatedTags);
+
+        // Save changes to CSV file
+        await csvUtils.saveChangesToCsv(updatedMessages, updatedTags, currentFileName);
     };
 
-    const handleTagEdit = (oldTagName, newTagName, newColor, newDescription) => {
+    const handleTagEdit = async (oldTagName, newTagName, newColor, newDescription) => {
         if (newTagName.trim() === '') return;
 
-        setTags((prevTags) => {
-            const updatedTags = { ...prevTags };
-            if (oldTagName !== newTagName) {
-                updatedTags[newTagName] = {
-                    ...updatedTags[oldTagName],
-                    name: newTagName,
-                    color: newColor || updatedTags[oldTagName].color,
-                    description: newDescription
-                };
-                delete updatedTags[oldTagName];
-            } else {
-                updatedTags[oldTagName].color = newColor;
-                updatedTags[oldTagName].description = newDescription;
-            }
-            return updatedTags;
-        });
+        const updatedTags = { ...tags };
+        if (oldTagName !== newTagName) {
+            updatedTags[newTagName] = {
+                ...updatedTags[oldTagName],
+                name: newTagName,
+                color: newColor || updatedTags[oldTagName].color,
+                description: newDescription
+            };
+            delete updatedTags[oldTagName];
+        } else {
+            updatedTags[oldTagName].color = newColor;
+            updatedTags[oldTagName].description = newDescription;
+        }
 
-        setMessages((prevMessages) => {
-            return prevMessages.map((message) =>
-                message.thread === oldTagName
-                    ? { ...message, thread: newTagName }
-                    : message
-            );
-        });
+        setTags(updatedTags);
+
+        const updatedMessages = messages.map((message) =>
+            message.thread === oldTagName
+                ? { ...message, thread: newTagName }
+                : message
+        );
+
+        setMessages(updatedMessages);
+
+        // Save changes to CSV file
+        await csvUtils.saveChangesToCsv(updatedMessages, updatedTags, currentFileName);
     };
-
 
     const getRandomColor = () => {
         return '#' + Math.floor(Math.random() * 16777215).toString(16);
@@ -127,25 +181,49 @@ function App() {
         <div className="App">
             <header className="App-header">
                 <h1>Chat Room</h1>
+                <nav className="nav-menu">
+                    <Link to="/" className="nav-button">Home</Link>
+                    <Link to="/upload" className="nav-button">Upload CSV</Link>
+                    <Link to="/chat" className="nav-button">Chat Room</Link>
+                </nav>
                 <button className="theme-toggle" onClick={toggleTheme}>
                     {theme === 'light' ? '🌙' : '☀️'}
                 </button>
             </header>
             <main className="App-main">
-                {view === 'fileLoader' ? (
-                    <>
-                        <FileLoader onFileSelect={handleFileSelect} />
-                        {isLoading && <p className="loading-message">Loading file...</p>}
-                        {error && <p className="error-message">{error}</p>}
-                    </>
-                ) : (
-                    <div className="chat-view">
-                        <button className="back-button" onClick={handleBackToFileLoader}>Back</button>
-                        <ChatRoom messages={messages} onAnnotation={handleAnnotation} tags={tags} />
-                        <ThreadMenu tags={tags} onTagEdit={handleTagEdit} />
-                    </div>
-                )}
+                <Routes>
+                    <Route path="/" element={<Home fileUploaded={fileUploaded} />} />
+                    <Route path="/upload" element={<FileLoader onFileSelect={handleFileSelect} />} />
+                    <Route
+                        path="/chat"
+                        element={
+                            fileUploaded ? (
+                                <div className="chat-view">
+                                    <ChatRoom messages={messages} onAnnotation={handleAnnotation} tags={tags} />
+                                    <ThreadMenu tags={tags} onTagEdit={handleTagEdit} />
+                                </div>
+                            ) : (
+                                <Navigate to="/upload" replace />
+                            )
+                        }
+                    />
+                </Routes>
             </main>
+            {isLoading && <div className="loading-message">Loading...</div>}
+            {error && <div className="error-message">{error}</div>}
+        </div>
+    );
+}
+
+function Home({ fileUploaded }) {
+    return (
+        <div>
+            <h2>Welcome to the Chat Room App</h2>
+            {fileUploaded ? (
+                <p>You have uploaded a CSV file. You can now go to the <Link to="/chat">Chat Room</Link>.</p>
+            ) : (
+                <p>Please <Link to="/upload">upload a CSV file</Link> to start or resume a chat session.</p>
+            )}
         </div>
     );
 }

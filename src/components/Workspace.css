@@ -1,0 +1,74 @@
+.workspace {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+}
+
+.workspace-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.workspace-header h2 {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.open-folder-btn {
+    padding: 8px 16px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.open-folder-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.files-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background-color: var(--secondary-bg);
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.file-item:hover {
+    background-color: var(--background-color);
+}
+
+.file-name {
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
+.file-info {
+    font-size: 0.9em;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.workspace-loading, .workspace-error, .no-files {
+    text-align: center;
+    padding: 1rem;
+    color: var(--text-color);
+}
+
+.workspace-error {
+    color: #e74c3c;
+}

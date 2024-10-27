@@ -76,8 +76,30 @@
   .App-main {
     padding: 15px;
   }
-  
+
   .chat-view {
     flex-direction: column;
   }
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.nav-button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: var(--secondary-color);
 }

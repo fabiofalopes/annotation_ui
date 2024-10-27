@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import Workspace from './Workspace';
 import './FileLoader.css';
 
 const FileLoader = ({ onFileSelect }) => {
@@ -54,6 +55,7 @@ const FileLoader = ({ onFileSelect }) => {
                     style={{ display: 'none' }}
                 />
             </div>
+            <Workspace onFileSelect={onFileSelect} />
         </div>
     );
 };
