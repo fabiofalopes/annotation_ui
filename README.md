@@ -80,6 +80,12 @@ Input csv: Obrigatorio seguir o formato colunas :
 
 # Issues para resolver: 
 
+- [ ] Nomes dew ficheiros e pastas:
+   - [ ] 'files' -> 'workspace'
+   - [ ] 'chatRoom.js' e 'chatRoom.css' -> 'disentanglementChatRoom' ??
+   - [ ] 'ThreadMenu' -> 'TheadTagsMenu' ??? 
+- [ ] 'App.js' gigante, segregar coisas...
+
 ...
 
 # Questões 
