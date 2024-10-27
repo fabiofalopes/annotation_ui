@@ -22,6 +22,8 @@ Versão 0.001 da Ferramenta de anotação, especificamente do layout para o modu
       - React development server on port 3721 (frontend)
       - Express server on port 3722 (handles file operations and API endpoints)
 
+   Num projeto Node, é necessário um servidor (como o Express.js) para lidar com operações de ficheiros porque o código do lado do cliente que é executado no navegador não tem acesso direto ao sistema de ficheiros do sistema devido a restrições de segurança, e o servidor atua como intermediário para salvar, recuperar e manipular ficheiros.
+
 3. http://localhost:3721 
 
 ## Docker
