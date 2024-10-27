@@ -180,11 +180,11 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <h1>Chat Room</h1>
+                <h1>Disentanglement Chat Room</h1>
                 <nav className="nav-menu">
                     <Link to="/" className="nav-button">Home</Link>
                     <Link to="/upload" className="nav-button">Upload CSV</Link>
-                    <Link to="/chat" className="nav-button">Chat Room</Link>
+                    <Link to="/chat" className="nav-button">Disentanglement Chat Room</Link>
                 </nav>
                 <button className="theme-toggle" onClick={toggleTheme}>
                     {theme === 'light' ? '🌙' : '☀️'}
@@ -218,9 +218,9 @@ function App() {
 function Home({ fileUploaded }) {
     return (
         <div>
-            <h2>Welcome to the Chat Room App</h2>
+            <h2>Welcome to the Disentanglement Chat Room App</h2>
             {fileUploaded ? (
-                <p>You have uploaded a CSV file. You can now go to the <Link to="/chat">Chat Room</Link>.</p>
+                <p>You have uploaded a CSV file. You can now go to the <Link to="/chat">Disentanglement Chat Room</Link>.</p>
             ) : (
                 <p>Please <Link to="/upload">upload a CSV file</Link> to start or resume a chat session.</p>
             )}

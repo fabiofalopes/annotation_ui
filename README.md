@@ -92,6 +92,7 @@ Input csv: Obrigatorio seguir o formato colunas :
    - [ ] 'ThreadMenu' -> 'TheadTagsMenu' ??? 
    - [ ] '/upload' caminho -> '/manage-files' ou outra coisa ???
 - [ ] 'App.js' gigante, segregar coisas...
+   - Perceber melhor o route!!! (... from 'react-router-dom';)
 
 # Questões 
 
