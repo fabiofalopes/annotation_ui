@@ -45,22 +45,27 @@ Input csv: Obrigatorio seguir o formato colunas :
 
 # Todo's
 
-- [ ] Sugestão de tags. Após já terem sido criadas algumas tags, deve sempre sugerir essas tags para ser apenas 1 click para as colocar no turno.
-- [ ] Esquema de cores: Tanto em tags como na UI em geral
-    - Ter o dark mode sempre ativo no meu browser não ajudou kk
-- [ ] Se coluna reply_to_turn tiver referencia, então mostrar referencia a chat bubble (estilo whatsapp)
-- [ ] Save file / Load file Resume
+- [x] Esquema de cores: Tanto em tags como na UI em geral
+   - Esta melhor mas pode ser melhorado!
 
-- [ ] Navegação das paginas, agora esta confuso com a landing page assim..
-- [ ] O "see more" das mensagens longas tem que ser apenas para mensagens mesmo longas (so alterar o threshold)
-- [ ] Thread Tag menu mais optimizado: Cartões editaveis com descrição por exemplo para a tag editada. 
+- [x] O "see more" das mensagens longas tem que ser apenas para mensagens mesmo longas (so alterar o threshold)
 
 - [x] Important: Load the tags já criadas no csv com um comportamento estranho. Deve mostrar logo todas as tags previamente anotadas e guardadas no ficheiro
 
+- [ ] Save file / Load file Resume
+   - De momento apenas abre o ficheiro e mostra as respetivas tags mas nao escreve
+
+- [ ] Sugestão de tags. Após já terem sido criadas algumas tags, deve sempre sugerir essas tags para ser apenas 1 click para as colocar no turno.
+
+- [ ] Se coluna reply_to_turn tiver referencia, então mostrar referencia a chat bubble (estilo whatsapp)
+
+- [ ] Navegação das paginas, agora esta confuso com a landing page assim..
+
+- [ ] Thread Tag menu mais optimizado: Cartões editaveis com descrição por exemplo para a tag editada. 
 
 - [ ] Resume Work (começar exatamente onde estava, mesmo a nivel de scroll no chat)
-- [ ] Adicionar um Minimap (Code map - ao estilo do vscode) no chat, com highlights e cores, para permitir saltar diretamente para seções específicas das anotações no chat.
 
+- [ ] Adicionar um Minimap (Code map - ao estilo do vscode) no chat, com highlights e cores, para permitir saltar diretamente para seções específicas das anotações no chat.
 
 - [ ] Adicionar um 'File Picker' com uma lista de 'Arquivos Recentes' ou 'Arquivos Abertos Recentemente' no ecrã de upload do csv.
 
@@ -68,25 +73,7 @@ Input csv: Obrigatorio seguir o formato colunas :
 
 # Issues para resolver: 
 
-Quando faço 'npm start' tenho este aviso:
-
-```
-One of your dependencies, babel-preset-react-app, is importing the
-"@babel/plugin-proposal-private-property-in-object" package without
-declaring it in its dependencies. This is currently working because
-"@babel/plugin-proposal-private-property-in-object" is already in your
-node_modules folder for unrelated reasons, but it may break at any time.
-
-babel-preset-react-app is part of the create-react-app project, which
-is not maintianed anymore. It is thus unlikely that this bug will
-ever be fixed. Add "@babel/plugin-proposal-private-property-in-object" to
-your devDependencies to work around this error. This will make this message
-go away.
-```
-
-Fix !!!
-
----
+...
 
 # Questões 
 
