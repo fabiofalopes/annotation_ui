@@ -78,15 +78,20 @@ Input csv: Obrigatorio seguir o formato colunas :
 
 - [ ] Se clicar numa caixa de uma respetiva tag no thread menu, entao seria fixe aparecerem apenas mensagens tagadas com essa tag.
 
+- [ ] Tentar fazer com que a função que gera random colours para as tags, nao use cores muito carregadas e muito brancas.
+
+- [ ] Home page mais bonita..
+
+- [ ] Botão open folder, do componente workspace, da pagina '/upload' (ver App.js) não funca..
+
 # Issues para resolver: 
 
 - [ ] Nomes dew ficheiros e pastas:
    - [ ] 'files' -> 'workspace'
    - [ ] 'chatRoom.js' e 'chatRoom.css' -> 'disentanglementChatRoom' ??
    - [ ] 'ThreadMenu' -> 'TheadTagsMenu' ??? 
+   - [ ] '/upload' caminho -> '/manage-files' ou outra coisa ???
 - [ ] 'App.js' gigante, segregar coisas...
-
-...
 
 # Questões 
 
