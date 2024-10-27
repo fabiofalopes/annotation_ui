@@ -4,7 +4,7 @@ Work in progress
 
 Versão 0.001 da Ferramenta de anotação, especificamente do layout para o modulo de chat disentanglement.
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/8d67cbf2-724f-4919-b610-dab906eecf1f)
 
 ## Correr App
 
