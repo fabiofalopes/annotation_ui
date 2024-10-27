@@ -8,7 +8,8 @@ const ThreadMenu = ({ tags, onTagEdit }) => {
     e.preventDefault();
     const newName = e.target.tagName.value;
     const newColor = e.target.tagColor.value;
-    onTagEdit(tagName, newName, newColor);
+    const newDescription = e.target.tagDescription.value;
+    onTagEdit(tagName, newName, newColor, newDescription);
     setEditingTag(null);
   };
 
@@ -16,20 +17,26 @@ const ThreadMenu = ({ tags, onTagEdit }) => {
     <div className="thread-menu">
       <h2>Thread Tags</h2>
       {Object.entries(tags).map(([tagName, data]) => (
-        <div key={tagName} className="tag-item" style={{ borderLeft: `4px solid ${data.color}` }}>
+        <div 
+          key={tagName} 
+          className="tag-item" 
+          style={{ borderLeft: `4px solid ${data.color}` }}
+        >
           {editingTag === tagName ? (
             <form onSubmit={(e) => handleEditSubmit(e, tagName)}>
               <input type="text" name="tagName" defaultValue={tagName} />
               <input type="color" name="tagColor" defaultValue={data.color} />
+              <textarea name="tagDescription" defaultValue={data.description || ''} placeholder="Enter tag description" />
               <button type="submit">Save</button>
               <button type="button" onClick={() => setEditingTag(null)}>Cancel</button>
             </form>
           ) : (
             <>
               <h3>{tagName}</h3>
+              <p>{data.description || 'No description'}</p>
               <ul>
-                <li>Created: {new Date(data.created).toLocaleString()}</li>
                 <li>Used in: {data.references.length} messages</li>
+                <li><small>Created: {new Date(data.created).toLocaleString()}</small></li>
               </ul>
               <button onClick={() => setEditingTag(tagName)}>Edit</button>
             </>
@@ -40,4 +47,4 @@ const ThreadMenu = ({ tags, onTagEdit }) => {
   );
 };
 
-export default ThreadMenu;  
+export default ThreadMenu;

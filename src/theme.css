@@ -1,0 +1,47 @@
+:root {
+    /* Light mode colors */
+    --primary-color-light: #87ceeb; /* Soft blue */
+    --secondary-color-light: #c9e4ca; /* Light greenish-yellow */
+    --background-color-light: #f2f2f2; /* Soft gray */
+    --text-color-light: #455a64; /* Dark gray-blue */
+    --card-background-light: #ffffff; /* White */
+    --card-shadow-light: 0 2px 8px rgba(0, 0, 0, 0.06); /* Soft shadow */
+    --secondary-bg-light: #e5e5e5; /* Light gray */
+    --shot-box-light: #d9f7be; /* Light greenish-yellow */
+    --threat-tags-light: #ffd7be; /* Light orange-yellow */
+
+    /* Dark mode colors */
+    --primary-color-dark: #6d9eeb;
+    --secondary-color-dark: #7fc6a4;
+    --background-color-dark: #1f2937;
+    --text-color-dark: #e2e8f0;
+    --card-background-dark: #2d3748;
+    --card-shadow-dark: 0 2px 8px rgba(0, 0, 0, 0.25);
+    --secondary-bg-dark: #374151;
+
+    /* Default to light mode */
+    --primary-color: var(--primary-color-light);
+    --secondary-color: var(--secondary-color-light);
+    --background-color: var(--background-color-light);
+    --text-color: var(--text-color-light);
+    --card-background: var(--card-background-light);
+    --card-shadow: var(--card-shadow-light);
+    --secondary-bg: var(--secondary-bg-light);
+    --shot-box: var(--shot-box-light);
+    --threat-tags: var(--threat-tags-light);
+}
+
+[data-theme="dark"] {
+    --primary-color: var(--primary-color-dark);
+    --secondary-color: var(--secondary-color-dark);
+    --background-color: var(--background-color-dark);
+    --text-color: var(--text-color-dark);
+    --card-background: var(--card-background-dark);
+    --card-shadow: var(--card-shadow-dark);
+    --secondary-bg: var(--secondary-bg-dark);
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}

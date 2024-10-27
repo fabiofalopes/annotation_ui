@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import ChatRoom from './components/ChatRoom';
 import FileLoader from './components/FileLoader';
 import ThreadMenu from './components/ThreadMenu';
 import csvUtils from './utils/csvUtils';
-
 function App() {
     const [messages, setMessages] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [view, setView] = useState('fileLoader');
     const [tags, setTags] = useState({});
+    const [theme, setTheme] = useState('light');
 
     const handleFileSelect = async (file) => {
         console.log('File selected in App.js:', file.name);
@@ -44,7 +44,6 @@ function App() {
             setIsLoading(false);
         }
     };
-
     const handleBackToFileLoader = () => {
         setView('fileLoader');
         setMessages([]);
@@ -80,7 +79,7 @@ function App() {
         });
     };
 
-    const handleTagEdit = (oldTagName, newTagName, newColor) => {
+    const handleTagEdit = (oldTagName, newTagName, newColor, newDescription) => {
         if (newTagName.trim() === '') return;
 
         setTags((prevTags) => {
@@ -89,11 +88,13 @@ function App() {
                 updatedTags[newTagName] = {
                     ...updatedTags[oldTagName],
                     name: newTagName,
-                    color: newColor || updatedTags[oldTagName].color
+                    color: newColor || updatedTags[oldTagName].color,
+                    description: newDescription
                 };
                 delete updatedTags[oldTagName];
             } else {
                 updatedTags[oldTagName].color = newColor;
+                updatedTags[oldTagName].description = newDescription;
             }
             return updatedTags;
         });
@@ -107,14 +108,28 @@ function App() {
         });
     };
 
+
     const getRandomColor = () => {
-        return '#' + Math.floor(Math.random()*16777215).toString(16);
+        return '#' + Math.floor(Math.random() * 16777215).toString(16);
     };
+
+    const toggleTheme = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+    };
+
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+    }, [theme]);
 
     return (
         <div className="App">
             <header className="App-header">
                 <h1>Chat Room</h1>
+                <button className="theme-toggle" onClick={toggleTheme}>
+                    {theme === 'light' ? '🌙' : '☀️'}
+                </button>
             </header>
             <main className="App-main">
                 {view === 'fileLoader' ? (

@@ -33,10 +33,12 @@ const MessageBubble = ({ message, tag, onTagUpdate }) => {
           </button>
         </div>
       )}
-      <TagInput
-        tag={tag}
-        onTagUpdate={onTagUpdate}
-      />
+      <div className="tag-container">
+        <TagInput
+          tag={tag}
+          onTagUpdate={onTagUpdate}
+        />
+      </div>
     </div>
   );
 };
