@@ -58,22 +58,23 @@ Input csv: Obrigatorio seguir o formato colunas :
 
 - [x] Important: Load the tags já criadas no csv com um comportamento estranho. Deve mostrar logo todas as tags previamente anotadas e guardadas no ficheiro
 
-- [ ] Save file / Load file Resume
-   - De momento apenas abre o ficheiro e mostra as respetivas tags mas nao escreve
+- [x] Save file / Load file Resume
+
+- [ ] Resume Work (começar exatamente onde estava, mesmo a nivel de scroll no chat)
+
+- [x] Navegação das paginas, agora esta confuso com a landing page assim..
+
+- [x] Thread Tag menu mais optimizado: Cartões editaveis com descrição por exemplo para a tag editada.
+   - [ ] Colocada descrição, talvez possam haver mais campos???
+
+- [x] Adicionar um 'File Picker' com uma lista de 'Arquivos Recentes' ou 'Arquivos Abertos Recentemente' no ecrã de upload do csv.
+   - De momento a pagina 'upload' contem um componente workspace que lê diretamente da pasta 'files' na base do projecto, listanto assim todos os ficheiros que já foram carregados previamentem, visto que de momento, quando carregamos um ficheiro, é criada uma copia nesta pasta.
 
 - [ ] Sugestão de tags. Após já terem sido criadas algumas tags, deve sempre sugerir essas tags para ser apenas 1 click para as colocar no turno.
 
 - [ ] Se coluna reply_to_turn tiver referencia, então mostrar referencia a chat bubble (estilo whatsapp)
 
-- [ ] Navegação das paginas, agora esta confuso com a landing page assim..
-
-- [ ] Thread Tag menu mais optimizado: Cartões editaveis com descrição por exemplo para a tag editada. 
-
-- [ ] Resume Work (começar exatamente onde estava, mesmo a nivel de scroll no chat)
-
 - [ ] Adicionar um Minimap (Code map - ao estilo do vscode) no chat, com highlights e cores, para permitir saltar diretamente para seções específicas das anotações no chat.
-
-- [ ] Adicionar um 'File Picker' com uma lista de 'Arquivos Recentes' ou 'Arquivos Abertos Recentemente' no ecrã de upload do csv.
 
 - [ ] Se clicar numa caixa de uma respetiva tag no thread menu, entao seria fixe aparecerem apenas mensagens tagadas com essa tag.
 
