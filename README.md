@@ -82,7 +82,8 @@ Input csv: Obrigatorio seguir o formato colunas :
 
 - [ ] Home page mais bonita..
 
-- [ ] Botão open folder, do componente workspace, da pagina '/upload' (ver App.js) não funca..
+- [x] Botão open folder, do componente workspace, da pagina '/upload'
+   - [ ] Não abre em Docker..
 
 # Issues para resolver: 
 
