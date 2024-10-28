@@ -9,6 +9,10 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+      - files-data:/app/files  # Use a named volume for the files folder
     environment:
       - CHOKIDAR_USEPOLLING=true
       - NODE_ENV=development
+
+volumes:
+  files-data:  # Define the named volume

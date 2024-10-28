@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
+# Add xdg-utils for Linux systems
+RUN apt-get update && apt-get install -y xdg-utils
+
 # Install dependencies
 RUN npm install
 
