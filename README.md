@@ -94,6 +94,7 @@ Input csv: Obrigatorio seguir o formato colunas :
    - [ ] '/upload' caminho -> '/manage-files' ou outra coisa ???
 - [ ] 'App.js' gigante, segregar coisas...
    - Perceber melhor o route!!! (... from 'react-router-dom';)
+- [ ] Drag and drop do csv na pagina /upload nao da em Firefox, mas dá em Chrome..
 
 # Questões 
 
