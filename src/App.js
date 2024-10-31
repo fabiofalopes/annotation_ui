@@ -11,7 +11,8 @@ function App() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [tags, setTags] = useState({});
-    const [theme, setTheme] = useState('light');
+    //const [theme, setTheme] = useState('light'); // Make the default theme 'light'
+    const [theme, setTheme] = useState(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     const [fileUploaded, setFileUploaded] = useState(false);
     const [currentFileName, setCurrentFileName] = useState('');
     const navigate = useNavigate();
