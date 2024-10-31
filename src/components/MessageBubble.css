@@ -44,3 +44,49 @@
 .see-all-button:hover {
   color: var(--secondary-color);
 }
+
+.user-id {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 16px;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+}
+
+.user-id-label {
+  font-size: 0.85em;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 350;
+  /* font-weight: bold; */
+}
+
+.user-id-value {
+  /* font-weight: 500; */
+  font-weight: bold;
+}
+
+.turn-id-label {
+  font-size: 0.85em;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 350;
+}
+
+.turn-id {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 16px;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+}
+
+.turn-id-value {
+  font-weight: 500;
+}

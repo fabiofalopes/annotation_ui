@@ -19,8 +19,14 @@ const MessageBubble = ({ message, tag, onTagUpdate }) => {
   return (
     <div className={`message-bubble ${expanded ? 'expanded' : ''}`} style={tag ? { borderLeft: `4px solid ${tag.color}` } : {}}>
       <div className="message-header">
-        <span className="turn-id">{message?.turn_id || 'Unknown'}</span>
-        <span className="user-id"style={{ fontSize: 'larger' }}> User Id: {message?.user_id || 'Unknown'}</span>
+      <span className="turn-id">
+        <span className="turn-id-label">Turn_Id</span>
+        <span className="turn-id-value">{message.turn_id}</span>
+      </span>
+        <span className="user-id">
+          <span className="user-id-label">User_Id</span>
+          <span className="user-id-value">{message.user_id}</span>
+        </span>
       </div>
       <div className="message-content">
         {displayText}

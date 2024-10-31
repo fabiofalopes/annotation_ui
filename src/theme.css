@@ -29,6 +29,8 @@
     --secondary-bg: var(--secondary-bg-light);
     --shot-box: var(--shot-box-light);
     --threat-tags: var(--threat-tags-light);
+
+    --border-color: rgba(128, 128, 128, 0.2);
 }
 
 [data-theme="dark"] {
@@ -39,6 +41,8 @@
     --card-background: var(--card-background-dark);
     --card-shadow: var(--card-shadow-dark);
     --secondary-bg: var(--secondary-bg-dark);
+    --border-color: rgba(128, 128, 128, 0.3);
+
 }
 
 body {
