@@ -3,10 +3,15 @@
   padding: 12px;
   margin-bottom: 16px;
   max-width: 80%;
-  width: auto;
+  /* width: auto; */
   align-self: flex-end;
+  transition: transform 0.3s ease-in-out;
   background-color: var(--card-background);
   box-shadow: var(--card-shadow);
+  margin-left: auto;  /* This aligns messages to the right by default */
+  width: fit-content;
+  transition: margin 0.2s ease-in-out;
+  position: relative;
 }
 
 .message-header {
@@ -49,8 +54,10 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 8px;
-  border-radius: 16px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
   background-color: var(--card-background);
   border: 1px solid var(--border-color);
 }
@@ -67,6 +74,14 @@
 .user-id-value {
   /* font-weight: 500; */
   font-weight: bold;
+}
+
+.user-id:hover {
+  background-color: color-mix(in srgb, var(--text-color) 5%, var(--card-background));
+}
+
+.user-selected .user-id {
+  background-color: color-mix(in srgb, var(--text-color) 10%, var(--card-background));
 }
 
 .turn-id-label {
@@ -89,4 +104,10 @@
 
 .turn-id-value {
   font-weight: 500;
+}
+
+.message-bubble.user-selected {
+  margin-left: 20px;  /* Add some padding from the left edge */
+  margin-right: auto;
+      background-color: color-mix(in srgb, var(--primary-color) 8%, var(--card-background));
 }

@@ -5,6 +5,7 @@ import './ChatRoom.css';
 const ChatRoom = ({ messages, onAnnotation, tags }) => {
     const chatBoxRef = useRef(null);
     const [isInitialLoad, setIsInitialLoad] = useState(true);
+    const [selectedUserId, setSelectedUserId] = useState(null);
 
     useEffect(() => {
         if (chatBoxRef.current) {
@@ -23,6 +24,10 @@ const ChatRoom = ({ messages, onAnnotation, tags }) => {
         }, 0);
     };
 
+    const handleUserClick = (userId) => {
+        setSelectedUserId(prevUserId => prevUserId === userId ? null : userId);
+    };
+
     return (
         <div className="chat-room">
             <div className="chat-box" ref={chatBoxRef}>
@@ -32,6 +37,8 @@ const ChatRoom = ({ messages, onAnnotation, tags }) => {
                         message={message}
                         tag={tags[message.thread]}
                         onTagUpdate={(tagName) => handleAnnotation(message.turn_id, tagName)}
+                        isUserSelected={selectedUserId === message.user_id}
+                        onUserClick={handleUserClick}
                     />
                 ))}
             </div>

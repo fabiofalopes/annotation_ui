@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TagInput from './TagInput';
 import './MessageBubble.css';
 
-const MessageBubble = ({ message, tag, onTagUpdate }) => {
+const MessageBubble = ({ message, tag, onTagUpdate, isUserSelected, onUserClick }) => {
   const [expanded, setExpanded] = useState(false);
   const maxLength = 300; // Tamanho maximo do texto mostrado, sem ter que clicar "see more"
 
@@ -17,13 +17,16 @@ const MessageBubble = ({ message, tag, onTagUpdate }) => {
   const shouldShowExpandButton = message?.turn_text && message.turn_text.length > maxLength;
 
   return (
-    <div className={`message-bubble ${expanded ? 'expanded' : ''}`} style={tag ? { borderLeft: `4px solid ${tag.color}` } : {}}>
+    <div className={`message-bubble ${expanded ? 'expanded' : ''} ${isUserSelected ? 'user-selected' : ''}`} 
+         style={{
+           ...tag ? { borderLeft: `4px solid ${tag.color}` } : {},
+         }}>
       <div className="message-header">
-      <span className="turn-id">
-        <span className="turn-id-label">Turn_Id</span>
-        <span className="turn-id-value">{message.turn_id}</span>
-      </span>
-        <span className="user-id">
+        <span className="turn-id">
+          <span className="turn-id-label">Turn_Id</span>
+          <span className="turn-id-value">{message.turn_id}</span>
+        </span>
+        <span className="user-id" onClick={() => onUserClick(message.user_id)}>
           <span className="user-id-label">User_Id</span>
           <span className="user-id-value">{message.user_id}</span>
         </span>
