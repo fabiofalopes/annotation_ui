@@ -4,7 +4,7 @@ import './MessageBubble.css';
 
 const MessageBubble = ({ message, tag, onTagUpdate }) => {
   const [expanded, setExpanded] = useState(false);
-  const maxLength = 300;
+  const maxLength = 300; // Tamanho maximo do texto mostrado, sem ter que clicar "see more"
 
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -20,7 +20,7 @@ const MessageBubble = ({ message, tag, onTagUpdate }) => {
     <div className={`message-bubble ${expanded ? 'expanded' : ''}`} style={tag ? { borderLeft: `4px solid ${tag.color}` } : {}}>
       <div className="message-header">
         <span className="turn-id">{message?.turn_id || 'Unknown'}</span>
-        <span className="user-id">{message?.user_id || 'Unknown'}</span>
+        <span className="user-id"style={{ fontSize: 'larger' }}> User Id: {message?.user_id || 'Unknown'}</span>
       </div>
       <div className="message-content">
         {displayText}

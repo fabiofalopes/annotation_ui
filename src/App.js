@@ -164,7 +164,26 @@ function App() {
     };
 
     const getRandomColor = () => {
-        return '#' + Math.floor(Math.random() * 16777215).toString(16);
+        //return '#' + Math.floor(Math.random() * 16777215).toString(16);
+        return getRandomBalancedColor();
+    };
+    
+    const hslToHex = (h, s, l) => {
+        l /= 100;
+        const a = s * Math.min(l, 1 - l) / 100;
+        const f = n => {
+            const k = (n + h / 30) % 12;
+            const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+            return Math.round(255 * color).toString(16).padStart(2, '0');
+        };
+        return `#${f(0)}${f(8)}${f(4)}`;
+    };
+    
+    const getRandomBalancedColor = () => {
+        const hue = Math.floor(Math.random() * 360);        // Full random hue
+        const saturation = Math.floor(Math.random() * 20) + 50;  // Saturation between 50-80%
+        const lightness = Math.floor(Math.random() * 30) + 40;   // Lightness between 40-70%
+        return hslToHex(hue, saturation, lightness);
     };
 
     const toggleTheme = () => {
