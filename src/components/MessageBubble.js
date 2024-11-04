@@ -30,6 +30,14 @@ const MessageBubble = ({ message, tag, onTagUpdate, isUserSelected, onUserClick 
           <span className="user-id-label">User_Id</span>
           <span className="user-id-value">{message.user_id}</span>
         </span>
+        <span>
+        {message.annotator && (
+          <span className="annotator-container">
+              <span className="annotator-label">Annotated by: </span>
+              <span className="annotator-value">{message.annotator}</span>
+          </span>
+        )}
+        </span>
       </div>
       <div className="message-content">
         {displayText}

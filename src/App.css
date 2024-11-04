@@ -7,14 +7,42 @@
 
 .App-header {
   background-color: var(--card-background);
-  padding: 20px;
   color: var(--text-color);
   box-shadow: var(--card-shadow);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  width: 100%;
+}
+
+.header-center {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .App-header h1 {
   margin: 0;
   color: var(--primary-color);
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  margin-left: 20px;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+  z-index: 1;
 }
 
 .App-main {
@@ -62,30 +90,12 @@
 }
 
 .theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
   background: none;
   border: none;
   font-size: 1.5em;
   cursor: pointer;
   color: var(--text-color);
-}
-
-@media (max-width: 768px) {
-  .App-main {
-    padding: 15px;
-  }
-
-  .chat-view {
-    flex-direction: column;
-  }
-}
-
-.nav-menu {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
+  padding: 0;
 }
 
 .nav-button {
@@ -102,4 +112,43 @@
 
 .nav-button:hover {
   background-color: var(--secondary-color);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .App-header {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .header-center {
+    position: static;
+    transform: none;
+    margin: 10px 0;
+    flex-direction: column;
+  }
+
+  .nav-menu {
+    margin-left: 0;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .header-controls {
+    margin: 10px 0;
+    justify-content: center;
+  }
+
+  .chat-view {
+    flex-direction: column;
+  }
+
+  .App-main {
+    padding: 15px;
+  }
+
+  .nav-button {
+    margin: 5px;
+  }
 }

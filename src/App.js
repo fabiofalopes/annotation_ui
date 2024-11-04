@@ -5,6 +5,7 @@ import ChatRoom from './components/ChatRoom';
 import FileLoader from './components/FileLoader';
 import ThreadMenu from './components/ThreadMenu';
 import csvUtils from './utils/csvUtils';
+import AuthMenu from './components/AuthMenu';
 
 function App() {
     const [messages, setMessages] = useState([]);
@@ -16,6 +17,8 @@ function App() {
     const [fileUploaded, setFileUploaded] = useState(false);
     const [currentFileName, setCurrentFileName] = useState('');
     const navigate = useNavigate();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [currentUser, setCurrentUser] = useState(null);
 
     const saveState = (state) => {
         try {
@@ -103,32 +106,42 @@ function App() {
     };
 
     const handleAnnotation = async (turnId, tagName) => {
+        if (!isAuthenticated) {
+            alert('Please login to add annotations');
+            return;
+        }
+    
         if (tagName.trim() === '') return;
-
+    
         const updatedMessages = messages.map((message) =>
             message.turn_id === turnId
-                ? { ...message, thread: tagName.trim() }
+                ? { 
+                    ...message, 
+                    thread: tagName.trim(),
+                    annotator: currentUser // Add annotator information
+                  }
                 : message
         );
-
+    
         setMessages(updatedMessages);
-
+    
         const updatedTags = { ...tags };
         if (!updatedTags[tagName]) {
             updatedTags[tagName] = {
                 name: tagName,
                 color: getRandomColor(),
                 references: [turnId],
-                created: new Date().toISOString()
+                created: new Date().toISOString(),
+                creator: currentUser // Add creator information
             };
         } else {
             if (!updatedTags[tagName].references.includes(turnId)) {
                 updatedTags[tagName].references.push(turnId);
             }
         }
-
+    
         setTags(updatedTags);
-
+    
         // Save changes to CSV file
         await csvUtils.saveChangesToCsv(updatedMessages, updatedTags, currentFileName);
     };
@@ -154,7 +167,10 @@ function App() {
 
         const updatedMessages = messages.map((message) =>
             message.thread === oldTagName
-                ? { ...message, thread: newTagName }
+                ? { ...message, 
+                    thread: newTagName ,
+                    annotator: currentUser
+                }
                 : message
         );
 
@@ -197,6 +213,47 @@ function App() {
         document.documentElement.setAttribute('data-theme', theme);
     }, [theme]);
 
+    const handleLogin = async (email, password) => {
+        // For this simple implementation, we'll just store in localStorage
+        const users = JSON.parse(localStorage.getItem('users') || '{}');
+        
+        if (!users[email] || users[email].password !== password) {
+            throw new Error('Invalid email or password');
+        }
+    
+        setIsAuthenticated(true);
+        setCurrentUser(email);
+        localStorage.setItem('currentUser', email);
+    };
+    
+    const handleRegister = async (email, password) => {
+        const users = JSON.parse(localStorage.getItem('users') || '{}');
+        
+        if (users[email]) {
+            throw new Error('Email already registered');
+        }
+    
+        users[email] = { password };
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        // Auto-login after registration
+        await handleLogin(email, password);
+    };
+    
+    const handleLogout = () => {
+        setIsAuthenticated(false);
+        setCurrentUser(null);
+        localStorage.removeItem('currentUser');
+    };
+    
+    useEffect(() => {
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) {
+            setIsAuthenticated(true);
+            setCurrentUser(savedUser);
+        }
+    }, []);
+
     return (
         <div className="App">
             <header className="App-header">
@@ -209,6 +266,13 @@ function App() {
                 <button className="theme-toggle" onClick={toggleTheme}>
                     {theme === 'light' ? '🌙' : '☀️'}
                 </button>
+                <AuthMenu
+                    isAuthenticated={isAuthenticated}
+                    currentUser={currentUser}
+                    onLogin={handleLogin}
+                    onRegister={handleRegister}
+                    onLogout={handleLogout}
+                />
             </header>
             <main className="App-main">
                 <Routes>

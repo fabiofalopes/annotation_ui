@@ -77,9 +77,10 @@ app.post('/api/save-csv', (req, res) => {
     turn_text: message.turn_text,
     reply_to_turn: message.reply_to_turn,
     thread: message.thread,
+    annotator: message.annotator || '',
     description: tags[message.thread]?.description || '',
     usage_count: tags[message.thread]?.references.length || 0,
-    created: tags[message.thread]?.created || ''
+    created: tags[message.thread]?.created || '',
   }));
 
   const csv = Papa.unparse(csvData);
