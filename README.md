@@ -159,7 +159,7 @@ Formato de registro:
   - Esforço: 6h
   - Obs: Foco em estrutura básica funcional
 
-### Semana 2-3 (14-25 outubro/2024)
+### Semana 2-3 (14-27 outubro/2024)
 - **[14/10 - 16/10] Sistema de Tags**
   - Desenvolvimento do menu de gestão de tags
   - Esforço: 8h (distribuídos em 3 dias)
@@ -170,13 +170,13 @@ Formato de registro:
   - Esforço: 9h (distribuídos em 3 dias)
   - Obs: Inclui testes de diferentes abordagens
 
-### Semana 4-5 (28 outubro - 8 novembro/2024)
+### Semana 4-5 (28 outubro - 10 novembro/2024)
 - **[28/10 - 01/11] Avaliação e Testes**
   - Testes de frameworks e viabilidade técnica de um backend. 
   - Esforço: 20h
   - Obs: Período de validação de escolhas técnicas
 
-- **[28/10 - 08/11] Melhorias e Ajustes**
+- **[28/10 - 10/11] Melhorias e Ajustes**
   - Melhorias gerais na interface e funcionalidades
   - Esforço: 15h
   - Obs: Foco em estabilidade e usabilidade
@@ -198,7 +198,7 @@ Formato de registro:
 1. Projeto em fase de esboço funcional
 2. Desenvolvimento focado em provas de conceito
 3. Tarefas executadas de forma sequencial
-4. Estimativas baseadas em tempo efetivo de desenvolvimento
+4. Estimativas baseadas no tempo de desenvolvimento
 
 ## Próximas Etapas
 - [ ] Definição de arquitetura definitiva
