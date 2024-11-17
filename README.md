@@ -85,6 +85,21 @@ Input csv: Obrigatorio seguir o formato colunas :
 - [x] Botão open folder, do componente workspace, da pagina '/upload'
    - [ ] Não abre em Docker..
 
+## Novos To-dos:
+
+- [ ] Ampliar width/tamanho geral da UI para melhor aproveitamento do espaço
+- [ ] Reduzir tamanho dos cartões na seção de tags
+- [ ] Implementar posicionamento do turn_id e user_id no canto superior esquerdo dos cartões
+- [ ] Implementar highlight de tags selecionadas com blur nas demais
+- [ ] Adicionar sistema de roles (admin/user normal)
+- [ ] Implementar funcionalidade de upload de CSV para admins
+- [ ] Adicionar datas de início e fim para tarefas
+- [ ] Implementar visualização de salas anotadas vs não anotadas
+- [ ] Adicionar referência "how to annotate" para cada sala
+- [ ] Implementar menu lateral esquerdo com lista de salas
+- [ ] Adicionar toggle para o menu lateral
+- [ ] Implementar indicadores de progresso nas salas (verde: concluído, amarelo: em progresso, vermelho: não iniciado)
+
 # Issues para resolver: 
 
 - [ ] Nomes dew ficheiros e pastas:
@@ -96,7 +111,99 @@ Input csv: Obrigatorio seguir o formato colunas :
    - Perceber melhor o route!!! (... from 'react-router-dom';)
 - [ ] Drag and drop do csv na pagina /upload nao da em Firefox, mas dá em Chrome..
 
+## Novas Issues para resolver:
+
+- [ ] Implementar sistema completo de gestão de utilizadores com login
+- [ ] Desenvolver backend para autenticação e autorização
+- [ ] Criar sistema de distribuição automática de tarefas
+- [ ] Implementar ferramentas de monitorização do progresso das anotações
+
 # Questões 
 
 - Como identificar os anotadores ao carregar os ficherios?
    - Pelo nome da coluna Thead_<nome>?
+
+## Novas Questões:
+
+- Como implementar o sistema de indicadores de progresso nas salas?
+- Como estruturar a hierarquia de permissões entre admin e utilizador normal?
+- Como integrar o novo menu lateral com o design atual?
+
+---
+
+# Tracking de Desenvolvimento
+
+## Início do Projeto
+- **Data de Início**: 7 de outubro de 2024
+- **Período de Desenvolvimento Inicial**: 7 de outubro - 8 de novembro de 2024
+- **Estado Atual**: Esboço funcional
+- **Escopo**: Desenvolvimento de template e funcionalidades base
+
+## Tarefas Realizadas
+Formato de registro: 
+```
+[Data Início - Data Fim] Nome da Tarefa
+- Descrição breve
+- Esforço estimado (em horas)
+- Observações relevantes
+```
+
+### Semana 1 (7-11 outubro/2024)
+- **[07/10 - 08/10] Setup Inicial do Projeto**
+  - Configuração base do projeto React
+  - Esforço: 5h
+  - Resultado: Estrutura inicial funcional
+
+- **[09/10 - 10/10] Interface de Chat Base**
+  - Implementação do layout básico de chat
+  - Esforço: 6h
+  - Obs: Foco em estrutura básica funcional
+
+### Semana 2-3 (14-25 outubro/2024)
+- **[14/10 - 16/10] Sistema de Tags**
+  - Desenvolvimento do menu de gestão de tags
+  - Esforço: 8h (distribuídos em 3 dias)
+  - Obs: Implementação inicial com funcionalidades básicas
+
+- **[21/10 - 23/10] Gestão de Arquivos**
+  - Sistema de upload e processamento de CSVs
+  - Esforço: 9h (distribuídos em 3 dias)
+  - Obs: Inclui testes de diferentes abordagens
+
+### Semana 4-5 (28 outubro - 8 novembro/2024)
+- **[28/10 - 01/11] Avaliação e Testes**
+  - Testes de frameworks e viabilidade técnica de um backend. 
+  - Esforço: 20h
+  - Obs: Período de validação de escolhas técnicas
+
+- **[28/10 - 08/11] Melhorias e Ajustes**
+  - Melhorias gerais na interface e funcionalidades
+  - Esforço: 15h
+  - Obs: Foco em estabilidade e usabilidade
+
+## Métricas de Desenvolvimento
+- **Média de esforço diário**: 2-3 horas
+- **Tempo total investido**: FAZER APROXIMAÇÃO
+
+## Formato para Novas Entradas
+```markdown
+### [Período]
+- **[Data Início - Data Fim] Nome da Tarefa**
+  - Descrição clara e concisa
+  - Esforço: Xh
+  - Obs: Informações relevantes sobre desenvolvimento/implementação
+```
+
+## Observações Gerais
+1. Projeto em fase de esboço funcional
+2. Desenvolvimento focado em provas de conceito
+3. Tarefas executadas de forma sequencial
+4. Estimativas baseadas em tempo efetivo de desenvolvimento
+
+## Próximas Etapas
+- [ ] Definição de arquitetura definitiva
+- [ ] Início de desenvolvimento avançado
+- [ ] Estabelecimento de padrões de código
+- [ ] Implementação de testes sistemáticos
+
+Nota: Este formato tem como objectivo servir como base para futura elaboração do gráfico Gantt.
